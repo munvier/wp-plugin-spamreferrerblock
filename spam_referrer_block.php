@@ -1,4 +1,4 @@
-<?php
+?php
 /*
 Plugin Name: SpamReferrerBlock
 Plugin URI: https://wordpress.org/plugins/spamreferrerblock/
@@ -101,7 +101,8 @@ class SpamReferrerBlock
         global $wpdb;
         foreach($blacklist as $item) {
             $esc_item = esc_sql($item);
-            $wpdb->query("INSERT IGNORE INTO $this->table_name (item) VALUE ('$esc_item')");
+            if (!empty($item))
+                $wpdb->query("INSERT IGNORE INTO $this->table_name (item) VALUE ('$esc_item')");
         }
     }
 
@@ -129,7 +130,7 @@ class SpamReferrerBlock
             $ref = $_SERVER['HTTP_REFERER'];
 
             foreach($this->blacklist() as $spammer) {
-                if (strpos($ref, $spammer->item) !== false) {
+                if (isset($spammer->item) && !empty($spammer->item) && strpos($ref, $spammer->item) !== false) {
                     $response    = get_option('srb_response');
                     $redirection = get_option('srb_redirection');
 
