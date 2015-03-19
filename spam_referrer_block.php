@@ -1,4 +1,4 @@
-?php
+<?php
 /*
 Plugin Name: SpamReferrerBlock
 Plugin URI: https://wordpress.org/plugins/spamreferrerblock/
